@@ -222,32 +222,76 @@ navBtns.forEach(btn => {
 
 // ── PARALLAX ──
 (function () {
-  const hero         = document.getElementById('hero');
-  const heroContent  = document.querySelector('.hero-content');
-  const cloudWraps   = document.querySelectorAll('.cloud-blobs');
+  const hero        = document.getElementById('hero');
+  const heroContent = document.querySelector('.hero-content');
+  const cloudWraps  = document.querySelectorAll('.cloud-blobs');
+
+  // Section content parallax targets — [selector, speed]
+  // Uses CSS `translate` property (composes on top of `transform`, no conflicts with tilt/hover)
+  const PX = [
+    // About
+    ['#about .glass',                        0.055],
+    ['#about .stats-col',                    0.090],
+    ['#about .sec-title',                    0.030],
+    ['#about .sec-label',                    0.020],
+
+    // Experience — staggered depth per item
+    ['#experience .tl-item:nth-child(1)',    0.040],
+    ['#experience .tl-item:nth-child(2)',    0.065],
+    ['#experience .tl-item:nth-child(3)',    0.090],
+    ['#experience .sec-title',              0.025],
+
+    // Skills — grid rows at different depths
+    ['#skills .skill-chip:nth-child(-n+4)',  0.045],
+    ['#skills .skill-chip:nth-child(n+5)',   0.075],
+    ['#skills .sec-title',                   0.025],
+
+    // Certifications — two cards at different depths
+    ['#certifications .cert-item:first-child', 0.060],
+    ['#certifications .cert-item:last-child',  0.095],
+    ['#certifications .sec-title',             0.025],
+
+    // Contact
+    ['#contact .contact-item:nth-child(1)',  0.040],
+    ['#contact .contact-item:nth-child(2)',  0.065],
+    ['#contact .contact-item:nth-child(3)',  0.050],
+    ['#contact .contact-item:nth-child(4)',  0.080],
+    ['#contact .sec-title',                  0.025],
+
+    // Portfolio
+    ['#portfolio .carousel-track-wrap',      0.040],
+    ['#portfolio .sec-title',               0.025],
+  ].map(([sel, spd]) => {
+    const els = [...document.querySelectorAll(sel)];
+    return els.map(el => ({ el, spd }));
+  }).flat().filter(({ el }) => el);
+
   let ticking = false;
 
   function doParallax() {
     const sy = window.scrollY;
+    const vc = window.innerHeight / 2;
 
-    // 1. Hero background — moves at 38% of scroll speed (depth effect)
-    if (hero) {
-      hero.style.backgroundPositionY = `calc(50% + ${sy * 0.38}px)`;
-    }
+    // ① Hero background — moves at 38% of scroll speed
+    if (hero) hero.style.backgroundPositionY = `calc(50% + ${sy * 0.38}px)`;
 
-    // 2. Hero content — drifts up slower than scroll (floats away)
-    if (heroContent) {
-      heroContent.style.transform = `translateY(${sy * -0.15}px)`;
-    }
+    // ② Hero content — floats up as you scroll away
+    if (heroContent) heroContent.style.translate = `0px ${sy * -0.15}px`;
 
-    // 3. Cloud blob containers — each section has different parallax speed
-    const speeds = [0.07, 0.11, 0.06, 0.09, 0.05];
+    // ③ Cloud blobs — each section drifts at different speed
+    const cloudSpeeds = [0.07, 0.11, 0.06, 0.09, 0.05];
     cloudWraps.forEach((c, i) => {
-      const section = c.closest('section');
-      if (!section) return;
-      const mid  = section.offsetTop + section.offsetHeight / 2;
-      const dist = sy - mid;
-      c.style.transform = `translateY(${dist * speeds[i % speeds.length]}px)`;
+      const sec = c.closest('section');
+      if (!sec) return;
+      const mid = sec.offsetTop + sec.offsetHeight / 2;
+      c.style.translate = `0px ${(sy - mid) * cloudSpeeds[i % cloudSpeeds.length]}px`;
+    });
+
+    // ④ Section content — each element at its own parallax depth
+    PX.forEach(({ el, spd }) => {
+      const rect = el.getBoundingClientRect();
+      const offset = (rect.top + rect.height / 2 - vc) * spd;
+      el.style.translate = `0px ${offset}px`;
     });
 
     ticking = false;
@@ -257,5 +301,5 @@ navBtns.forEach(btn => {
     if (!ticking) { requestAnimationFrame(doParallax); ticking = true; }
   }, { passive: true });
 
-  doParallax(); // run once on load
+  doParallax();
 })();
