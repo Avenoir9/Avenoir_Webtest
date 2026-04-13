@@ -168,32 +168,63 @@ document.querySelectorAll('.tilt').forEach(card => {
   card.addEventListener('mouseleave', () => { card.style.transform = ''; });
 });
 
-// ── CAROUSEL ──
-let current = 0;
-const track = document.getElementById('carTrack');
-const dots  = document.querySelectorAll('.car-dot');
-const cards = track.querySelectorAll('.porto-card');
-const total = cards.length;
+// ── CAROUSEL (infinite loop) ──
+(function () {
+  const track = document.getElementById('carTrack');
+  const dots  = [...document.querySelectorAll('.car-dot')];
+  const real  = [...track.querySelectorAll('.porto-card')];
+  const total = real.length;
 
-function goTo(idx) {
-  current = (idx + total) % total;
-  const cardW = cards[0].getBoundingClientRect().width;
-  track.style.transform = `translateX(-${current * (cardW + 20)}px)`;
-  dots.forEach((d, i) => d.classList.toggle('active', i === current));
-}
+  // Prepend clone of last card, append clone of first card
+  const cloneLast  = real[total - 1].cloneNode(true);
+  const cloneFirst = real[0].cloneNode(true);
+  track.insertBefore(cloneLast, real[0]);
+  track.appendChild(cloneFirst);
 
-document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
-document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
-dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.idx)));
-setInterval(() => goTo(current + 1), 3800);
+  let cur  = 1;   // index 1 = first real card (0 = clone of last)
+  let busy = false;
 
-let touchStartX = 0;
-track.addEventListener('touchstart', e => touchStartX = e.touches[0].clientX, {passive:true});
-track.addEventListener('touchend',   e => {
-  const dx = e.changedTouches[0].clientX - touchStartX;
-  if (Math.abs(dx) > 40) goTo(dx < 0 ? current + 1 : current - 1);
-});
-window.addEventListener('resize', () => goTo(current));
+  function cardStep() {
+    const c = track.querySelectorAll('.porto-card')[0];
+    return c.getBoundingClientRect().width + 24; // width + gap
+  }
+
+  function moveTo(idx, animate) {
+    track.style.transition = animate
+      ? 'transform .55s cubic-bezier(.4,0,.2,1)'
+      : 'none';
+    cur = idx;
+    track.style.transform = `translateX(-${cur * cardStep()}px)`;
+    const dotIdx = ((cur - 1) % total + total) % total;
+    dots.forEach((d, i) => d.classList.toggle('active', i === dotIdx));
+  }
+
+  moveTo(1, false); // snap to first real card on load
+
+  track.addEventListener('transitionend', () => {
+    if (cur <= 0)         moveTo(total, false); // clone-of-last → real last
+    if (cur >= total + 1) moveTo(1,     false); // clone-of-first → real first
+    busy = false;
+  });
+
+  function next() { if (!busy) { busy = true; moveTo(cur + 1, true); } }
+  function prev() { if (!busy) { busy = true; moveTo(cur - 1, true); } }
+
+  document.getElementById('nextBtn').addEventListener('click', next);
+  document.getElementById('prevBtn').addEventListener('click', prev);
+  dots.forEach(d => d.addEventListener('click', () => {
+    if (!busy) { busy = true; moveTo(+d.dataset.idx + 1, true); }
+  }));
+  setInterval(next, 3800);
+
+  let tx = 0;
+  track.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 40) dx < 0 ? next() : prev();
+  });
+  window.addEventListener('resize', () => moveTo(cur, false));
+})();
 
 // ── LIGHTBOX ──
 (function () {
