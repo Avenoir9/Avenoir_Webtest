@@ -1,0 +1,190 @@
+// ── TRANSLATIONS ──
+const LANG = {
+  en: {
+    badge:'✈ Ground Staff · FMG Co., Ltd. · Japan',
+    heroTitle:'Ground Staff & IT Support Specialist',
+    heroLoc:'Currently at FMG Co., Ltd. · Japan (via Unisky Co., Ltd.)',
+    scrollHint:'SCROLL',
+    aboutLabel:'// WHO I AM', aboutTitle:'About Me',
+    aboutText:`I'm <span>Putra Fauzan</span>, currently working as a <span>Ground Staff</span> at an airport in Japan, handling check-in procedures and boarding guidance. I'm committed to delivering fast, courteous service so every passenger feels confident and well taken care of.<br><br>Alongside my aviation role, I'm also involved in <span>IT support</span> — handling system issues, hardware/software maintenance, and managing airline-specific software to keep operations running smoothly. My strength lies in combining solid <span>communication skills</span>, adaptability, and a growing passion for <span>technology & AI</span> to add value wherever I work.`,
+    stat1Lbl:'Ground Staff', stat2Lbl:'Based in Japan', stat3Lbl:'Tech & Vibe Coder',
+    expLabel:'// FLIGHT LOG', expTitle:'Experience',
+    exp1Year:'MAR 2025 — PRESENT', exp1Role:'Ground Staff',
+    exp1Company:'✈ FMG Co., Ltd. (via Unisky Co., Ltd.) · Japan',
+    exp1Desc:'· Check-in counter: boarding procedures & baggage acceptance.<br>· Boarding gate: passenger guidance & escort.<br>· Handling flight inquiries, delay/change announcements.<br>· Supporting passengers with children or special needs.<br>· IT support: PC maintenance, troubleshooting, airline-native software management.<br>· Designed kanban boards to visualize workflows and boost team efficiency.<br>· Actively using AI tools (Claude Code, GitHub, Openclaw) for continuous learning.',
+    exp2Year:'APR 2023 — APR 2024', exp2Role:'Caddie',
+    exp2Company:'⛳ Katano Country Club · Japan',
+    exp2Desc:'· Supported guests throughout golf rounds with course guidance & club recommendations.<br>· Managed play pace and provided distance/condition advice.<br>· Built strong communication skills engaging with diverse clients daily.',
+    exp3Year:'APR 2019 — JUL 2019', exp3Role:'IT Support Intern',
+    exp3Company:'💻 PT. Garsel Fashion Shoes · Indonesia',
+    exp3Desc:'· Managed all company PCs (hardware & software).<br>· Diagnosed and resolved internet connectivity issues across the office.',
+    skillsLabel:'// CAPABILITIES', skillsTitle:'Skills',
+    skill1:'Ground Operations', skill2:'Passenger Services', skill3:'Microsoft 365',
+    skill4:'Graphic Design', skill5:'AI & Vibe Coding', skill6:'GitHub',
+    skill7:'PC Maintenance', skill8:'Japanese (日本語)',
+    certLabel:'// CREDENTIALS', certTitle:'Certifications',
+    cert1Name:'JLPT N2 — Japanese Language Proficiency', cert1Detail:'Issued · July 2023',
+    cert2Name:'TOEFL — Listening & Reading Test', cert2Detail:'Score: 497 pts · July 2024',
+    contactLabel:'// REACH ME', contactTitle:'Contact',
+    portfolioLabel:'// MOMENTS & WORK', portfolioTitle:'Portfolio', addPhoto:'ADD PHOTO',
+    footerRole:'Aviation & IT Professional · Japan',
+    footerCopy:'© 2026 · Crafted with passion for the skies',
+    ticker:['✈ GROUND STAFF','// FMG Co., Ltd. · JAPAN','✈ PUTRA FAUZAN','// AVIATION & IT PROFESSIONAL','✈ JLPT N2','// TOEFL 497pts'],
+  },
+  id: {
+    badge:'✈ Staf Darat · FMG Co., Ltd. · Jepang',
+    heroTitle:'Staf Darat & Spesialis Dukungan IT',
+    heroLoc:'Saat ini di FMG Co., Ltd. · Jepang (via Unisky Co., Ltd.)',
+    scrollHint:'GULIR',
+    aboutLabel:'// TENTANG SAYA', aboutTitle:'Tentang Saya',
+    aboutText:`Saya <span>Putra Fauzan</span>, saat ini bekerja sebagai <span>Staf Darat</span> di bandara Jepang, menangani prosedur check-in dan panduan boarding. Saya berkomitmen memberikan pelayanan cepat dan ramah agar setiap penumpang merasa nyaman dan terlayani dengan baik.<br><br>Selain peran penerbangan, saya juga terlibat dalam <span>dukungan IT</span> — menangani masalah sistem, perawatan hardware/software, dan mengelola perangkat lunak khusus maskapai. Kekuatan saya terletak pada <span>kemampuan komunikasi</span>, adaptabilitas, dan minat yang terus berkembang pada <span>teknologi & AI</span>.`,
+    stat1Lbl:'Staf Darat', stat2Lbl:'Berbasis di Jepang', stat3Lbl:'Tech & Vibe Coder',
+    expLabel:'// RIWAYAT KERJA', expTitle:'Pengalaman',
+    exp1Year:'MAR 2025 — SEKARANG', exp1Role:'Staf Darat',
+    exp1Company:'✈ FMG Co., Ltd. (via Unisky Co., Ltd.) · Jepang',
+    exp1Desc:'· Counter check-in: prosedur boarding & penerimaan bagasi.<br>· Gerbang keberangkatan: panduan & pendampingan penumpang.<br>· Menangani pertanyaan, pengumuman keterlambatan/perubahan penerbangan.<br>· Mendukung penumpang dengan anak-anak atau kebutuhan khusus.<br>· Dukungan IT: perawatan PC, troubleshooting, pengelolaan software maskapai.<br>· Merancang kanban board untuk visualisasi alur kerja dan efisiensi tim.<br>· Aktif menggunakan tools AI (Claude Code, GitHub, Openclaw).',
+    exp2Year:'APR 2023 — APR 2024', exp2Role:'Caddie',
+    exp2Company:'⛳ Katano Country Club · Jepang',
+    exp2Desc:'· Mendampingi tamu selama golf dengan panduan lapangan & rekomendasi stik.<br>· Mengelola kecepatan permainan dan memberikan saran jarak/kondisi lapangan.<br>· Membangun keterampilan komunikasi dengan berbagai klien setiap hari.',
+    exp3Year:'APR 2019 — JUL 2019', exp3Role:'IT Support (Magang)',
+    exp3Company:'💻 PT. Garsel Fashion Shoes · Indonesia',
+    exp3Desc:'· Mengelola semua PC perusahaan (hardware & software).<br>· Mendiagnosis dan menyelesaikan masalah koneksi internet di seluruh kantor.',
+    skillsLabel:'// KEMAMPUAN', skillsTitle:'Keahlian',
+    skill1:'Operasi Darat', skill2:'Layanan Penumpang', skill3:'Microsoft 365',
+    skill4:'Desain Grafis', skill5:'AI & Vibe Coding', skill6:'GitHub',
+    skill7:'Perawatan PC', skill8:'Bahasa Jepang (日本語)',
+    certLabel:'// SERTIFIKASI', certTitle:'Sertifikasi',
+    cert1Name:'JLPT N2 — Kemampuan Bahasa Jepang', cert1Detail:'Diterbitkan · Juli 2023',
+    cert2Name:'TOEFL — Tes Mendengarkan & Membaca', cert2Detail:'Skor: 497 poin · Juli 2024',
+    contactLabel:'// HUBUNGI SAYA', contactTitle:'Kontak',
+    portfolioLabel:'// MOMEN & KARYA', portfolioTitle:'Portofolio', addPhoto:'TAMBAH FOTO',
+    footerRole:'Profesional Penerbangan & IT · Jepang',
+    footerCopy:'© 2026 · Dibuat dengan semangat untuk langit',
+    ticker:['✈ STAF DARAT','// FMG Co., Ltd. · JEPANG','✈ PUTRA FAUZAN','// PROFESIONAL PENERBANGAN & IT','✈ JLPT N2','// TOEFL 497poin'],
+  },
+  ja: {
+    badge:'✈ グランドスタッフ · 株式会社FMG · 日本',
+    heroTitle:'グランドスタッフ & ITサポートスペシャリスト',
+    heroLoc:'現在勤務：株式会社FMG（ユニスカイ株式会社経由）· 日本',
+    scrollHint:'スクロール',
+    aboutLabel:'// 私について', aboutTitle:'プロフィール',
+    aboutText:`私、<span>プトラ・ファウザン</span>は現在日本の空港で<span>グランドスタッフ</span>として勤務し、チェックイン手続きや搭乗案内を担当しています。すべてのお客様に迅速かつ丁寧なサービスを提供することに努めています。<br><br>航空業務に加え、<span>ITサポート</span>にも携わっており、システムトラブル対応、ハードウェア・ソフトウェアのメンテナンス、航空会社専用ソフトウェアの管理を行っています。<span>コミュニケーション力</span>と柔軟な対応力、そして<span>テクノロジー・AI</span>への強い関心を活かし、貢献しています。`,
+    stat1Lbl:'グランドスタッフ', stat2Lbl:'日本在住', stat3Lbl:'テック & バイブコーダー',
+    expLabel:'// 職務経歴', expTitle:'職務経歴',
+    exp1Year:'2025年3月 — 現在', exp1Role:'グランドスタッフ',
+    exp1Company:'✈ 株式会社FMG（ユニスカイ株式会社経由）· 日本',
+    exp1Desc:'· チェックインカウンター：搭乗手続きおよび手荷物の受付対応。<br>· 搭乗ゲート：搭乗案内およびお客様の誘導。<br>· フライト情報・遅延変更時のお客様への案内対応。<br>· お子様連れ・サポートが必要なお客様へのサポート対応。<br>· ITサポート：PCメンテナンス、トラブル対応、航空会社ソフトウェア管理。<br>· チーム内カンバン作成・デザインにより業務効率化に貢献。<br>· AIツール（Claude Code、GitHub、Openclaw）を積極的に活用。',
+    exp2Year:'2023年4月 — 2024年4月', exp2Role:'キャディー',
+    exp2Company:'⛳ 交野カントリークラブ · 日本',
+    exp2Desc:'· お客様のゴルフプレーのサポートおよびコース案内。<br>· プレー進行管理および距離・コース状況のアドバイス提供。<br>· 多様なお客様との円滑なコミュニケーションによる満足度向上。',
+    exp3Year:'2019年4月 — 2019年7月', exp3Role:'ITサポート（インターン）',
+    exp3Company:'💻 PT. Garsel Fashion Shoes · インドネシア',
+    exp3Desc:'· 全社員のPC管理（ハードウェアおよびソフトウェア）。<br>· インターネット接続に関するトラブルシューティング。',
+    skillsLabel:'// スキル', skillsTitle:'スキル',
+    skill1:'グランドオペレーション', skill2:'旅客サービス', skill3:'Microsoft 365',
+    skill4:'グラフィックデザイン', skill5:'AI & バイブコーディング', skill6:'GitHub',
+    skill7:'PCメンテナンス', skill8:'日本語 (JLPT N2)',
+    certLabel:'// 資格', certTitle:'資格',
+    cert1Name:'JLPT N2 — 日本語能力試験', cert1Detail:'取得 · 2023年7月',
+    cert2Name:'TOEFL — リスニング & リーディングテスト', cert2Detail:'スコア：497点 · 2024年7月',
+    contactLabel:'// お問い合わせ', contactTitle:'お問い合わせ',
+    portfolioLabel:'// 作品・実績', portfolioTitle:'ポートフォリオ', addPhoto:'写真を追加',
+    footerRole:'航空 & IT プロフェッショナル · 日本',
+    footerCopy:'© 2026 · 空への情熱を込めて制作',
+    ticker:['✈ グランドスタッフ','// 株式会社FMG · 日本','✈ プトラ・ファウザン','// 航空 & IT プロフェッショナル','✈ JLPT N2','// TOEFL 497点'],
+  },
+};
+
+const langMeta = { en:{flag:'🇬🇧',code:'EN'}, id:{flag:'🇮🇩',code:'ID'}, ja:{flag:'🇯🇵',code:'JP'} };
+let currentLang = 'en';
+
+function applyLang(lang) {
+  currentLang = lang;
+  const t = LANG[lang];
+  document.documentElement.lang = lang;
+  document.getElementById('lang-flag').textContent = langMeta[lang].flag;
+  document.getElementById('lang-code').textContent  = langMeta[lang].code;
+  document.querySelectorAll('.lang-opt').forEach(o => o.classList.toggle('active', o.dataset.lang === lang));
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = t[el.dataset.i18n]; if (v !== undefined) el.textContent = v;
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const v = t[el.dataset.i18nHtml]; if (v !== undefined) el.innerHTML = v;
+  });
+  // rebuild ticker (doubled for seamless loop)
+  const items = [...t.ticker, ...t.ticker];
+  document.getElementById('ticker').innerHTML = items.map(s => `<span>${s}</span>`).join('');
+}
+
+// Lang switcher UI
+const langBtn      = document.getElementById('lang-btn');
+const langDropdown = document.getElementById('lang-dropdown');
+langBtn.addEventListener('click', e => {
+  e.stopPropagation();
+  langDropdown.classList.toggle('hidden');
+  langBtn.classList.toggle('open');
+});
+document.addEventListener('click', () => { langDropdown.classList.add('hidden'); langBtn.classList.remove('open'); });
+document.querySelectorAll('.lang-opt').forEach(opt => {
+  opt.addEventListener('click', e => {
+    e.stopPropagation();
+    applyLang(opt.dataset.lang);
+    langDropdown.classList.add('hidden');
+    langBtn.classList.remove('open');
+  });
+});
+
+// ── STARFIELD ──
+(function(){
+  const sf = document.getElementById('starfield');
+  for (let i = 0; i < 130; i++) {
+    const s = document.createElement('div'); s.className = 'star';
+    const sz = Math.random() * 2.5 + .4;
+    s.style.cssText = `width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${(Math.random()*4+1.5).toFixed(1)}s;animation-delay:${(Math.random()*5).toFixed(1)}s;opacity:${(Math.random()*.6+.1).toFixed(2)};`;
+    sf.appendChild(s);
+  }
+})();
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── 3D TILT ──
+document.querySelectorAll('.tilt').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width  - .5;
+    const y = (e.clientY - r.top)  / r.height - .5;
+    card.style.transform = `perspective(600px) rotateY(${x*8}deg) rotateX(${-y*8}deg) scale(1.02)`;
+  });
+  card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+});
+
+// ── CAROUSEL ──
+let current = 0;
+const track = document.getElementById('carTrack');
+const dots  = document.querySelectorAll('.car-dot');
+const cards = track.querySelectorAll('.porto-card');
+const total = cards.length;
+
+function goTo(idx) {
+  current = (idx + total) % total;
+  const cardW = cards[0].getBoundingClientRect().width;
+  track.style.transform = `translateX(-${current * (cardW + 20)}px)`;
+  dots.forEach((d, i) => d.classList.toggle('active', i === current));
+}
+
+document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.idx)));
+setInterval(() => goTo(current + 1), 3800);
+
+let touchStartX = 0;
+track.addEventListener('touchstart', e => touchStartX = e.touches[0].clientX, {passive:true});
+track.addEventListener('touchend',   e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(dx) > 40) goTo(dx < 0 ? current + 1 : current - 1);
+});
+window.addEventListener('resize', () => goTo(current));
