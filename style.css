@@ -296,12 +296,12 @@
     #portfolio { background: linear-gradient(180deg, var(--mid) 0%, var(--deep) 100%); overflow: hidden; }
     .carousel-track-wrap { overflow: hidden; }
     .carousel-track {
-      display: flex; gap: 20px;
+      display: flex; gap: 24px;
       transition: transform .55s cubic-bezier(.4,0,.2,1);
       will-change: transform;
     }
     .porto-card {
-      flex: 0 0 360px;
+      flex: 0 0 480px;
       background: rgba(255,255,255,.04); border: 2px dashed rgba(0,212,255,.25);
       border-radius: 22px; height: 240px;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
