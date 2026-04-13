@@ -195,6 +195,38 @@ track.addEventListener('touchend',   e => {
 });
 window.addEventListener('resize', () => goTo(current));
 
+// ── LIGHTBOX ──
+(function () {
+  const overlay = document.getElementById('lightbox');
+  const lbImg   = document.getElementById('lbImg');
+  const lbClose = document.getElementById('lbClose');
+
+  function openLightbox(src) {
+    lbImg.src = src;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    // clear src after transition so old image doesn't flash on next open
+    setTimeout(() => { lbImg.src = ''; }, 300);
+  }
+
+  // Wire up each card that has a porto-img
+  document.querySelectorAll('.porto-card').forEach(card => {
+    const img = card.querySelector('.porto-img');
+    if (!img) return;
+    card.style.cursor = 'zoom-in';
+    card.addEventListener('click', () => openLightbox(img.src));
+  });
+
+  lbClose.addEventListener('click', closeLightbox);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeLightbox(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+})();
+
 // ── SIDE NAV ACTIVE TRACKING ──
 const navBtns    = document.querySelectorAll('.snb');
 const navSections = document.querySelectorAll('section[id]');
