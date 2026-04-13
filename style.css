@@ -427,5 +427,11 @@
     /* mobile: hide nav */
     @media (max-width: 600px) { #side-nav { display: none; } }
 
+    /* ── HERO CONTENT WRAPPER (for parallax) ── */
+    .hero-content {
+      display: flex; flex-direction: column; align-items: center;
+      will-change: transform;
+    }
+
     /* ── TILT ── */
     .tilt { transition: transform .2s ease; will-change: transform; }

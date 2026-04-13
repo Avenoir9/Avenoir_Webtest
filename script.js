@@ -219,3 +219,43 @@ navBtns.forEach(btn => {
     if (target) target.scrollIntoView({ behavior: 'smooth' });
   });
 });
+
+// ── PARALLAX ──
+(function () {
+  const hero         = document.getElementById('hero');
+  const heroContent  = document.querySelector('.hero-content');
+  const cloudWraps   = document.querySelectorAll('.cloud-blobs');
+  let ticking = false;
+
+  function doParallax() {
+    const sy = window.scrollY;
+
+    // 1. Hero background — moves at 38% of scroll speed (depth effect)
+    if (hero) {
+      hero.style.backgroundPositionY = `calc(50% + ${sy * 0.38}px)`;
+    }
+
+    // 2. Hero content — drifts up slower than scroll (floats away)
+    if (heroContent) {
+      heroContent.style.transform = `translateY(${sy * -0.15}px)`;
+    }
+
+    // 3. Cloud blob containers — each section has different parallax speed
+    const speeds = [0.07, 0.11, 0.06, 0.09, 0.05];
+    cloudWraps.forEach((c, i) => {
+      const section = c.closest('section');
+      if (!section) return;
+      const mid  = section.offsetTop + section.offsetHeight / 2;
+      const dist = sy - mid;
+      c.style.transform = `translateY(${dist * speeds[i % speeds.length]}px)`;
+    });
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(doParallax); ticking = true; }
+  }, { passive: true });
+
+  doParallax(); // run once on load
+})();
