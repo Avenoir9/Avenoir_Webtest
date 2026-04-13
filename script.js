@@ -30,6 +30,8 @@ const LANG = {
     footerRole:'Aviation & IT Professional · Japan',
     footerCopy:'© 2026 · Crafted with passion for the skies',
     ticker:['✈ GROUND STAFF','// FMG Co., Ltd. · JAPAN','✈ PUTRA FAUZAN','// AVIATION & IT PROFESSIONAL','✈ JLPT N2','// TOEFL 497pts'],
+    navAbout:'About Me', navExp:'Experience', navSkills:'Skills',
+    navCert:'Certifications', navContact:'Contact', navPortfolio:'Portfolio',
   },
   id: {
     badge:'✈ Staf Darat · FMG Co., Ltd. · Jepang',
@@ -61,6 +63,8 @@ const LANG = {
     footerRole:'Profesional Penerbangan & IT · Jepang',
     footerCopy:'© 2026 · Dibuat dengan semangat untuk langit',
     ticker:['✈ STAF DARAT','// FMG Co., Ltd. · JEPANG','✈ PUTRA FAUZAN','// PROFESIONAL PENERBANGAN & IT','✈ JLPT N2','// TOEFL 497poin'],
+    navAbout:'Tentang Saya', navExp:'Pengalaman', navSkills:'Keahlian',
+    navCert:'Sertifikasi', navContact:'Kontak', navPortfolio:'Portofolio',
   },
   ja: {
     badge:'✈ グランドスタッフ · 株式会社FMG · 日本',
@@ -92,6 +96,8 @@ const LANG = {
     footerRole:'航空 & IT プロフェッショナル · 日本',
     footerCopy:'© 2026 · 空への情熱を込めて制作',
     ticker:['✈ グランドスタッフ','// 株式会社FMG · 日本','✈ プトラ・ファウザン','// 航空 & IT プロフェッショナル','✈ JLPT N2','// TOEFL 497点'],
+    navAbout:'プロフィール', navExp:'職務経歴', navSkills:'スキル',
+    navCert:'資格', navContact:'お問い合わせ', navPortfolio:'ポートフォリオ',
   },
 };
 
@@ -188,3 +194,28 @@ track.addEventListener('touchend',   e => {
   if (Math.abs(dx) > 40) goTo(dx < 0 ? current + 1 : current - 1);
 });
 window.addEventListener('resize', () => goTo(current));
+
+// ── SIDE NAV ACTIVE TRACKING ──
+const navBtns    = document.querySelectorAll('.snb');
+const navSections = document.querySelectorAll('section[id]');
+
+const secObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navBtns.forEach(btn =>
+        btn.classList.toggle('active', btn.dataset.section === entry.target.id)
+      );
+    }
+  });
+}, { threshold: 0.35 });
+
+navSections.forEach(s => secObserver.observe(s));
+
+// Smooth scroll on nav click
+navBtns.forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(btn.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
