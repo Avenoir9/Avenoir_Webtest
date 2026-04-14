@@ -102,6 +102,30 @@
         url('Image/hero-bg.png') center/cover no-repeat;
       overflow: hidden;
     }
+    /* ── HERO CLOUD ANIMATION ── */
+    .hero-clouds {
+      position: absolute; inset: 0;
+      overflow: hidden; pointer-events: none;
+      z-index: 1;
+    }
+    .hero-clouds img {
+      position: absolute;
+      max-width: 100%;
+      animation: hero-cloud-drift calc(8s * var(--i)) linear infinite;
+      opacity: 0.55;
+      filter: brightness(1.1) drop-shadow(0 4px 24px rgba(180,220,255,0.18));
+    }
+    /* Stagger vertical positions & starting offsets per cloud */
+    .hero-clouds img:nth-child(1) { bottom: 0%;  animation-delay: calc(-8s * 0.1); }
+    .hero-clouds img:nth-child(2) { bottom: 8%;  animation-delay: calc(-8s * 0.5); opacity: 0.4; }
+    .hero-clouds img:nth-child(3) { bottom: 2%;  animation-delay: calc(-8s * 0.3); opacity: 0.6; }
+    .hero-clouds img:nth-child(4) { bottom: 14%; animation-delay: calc(-8s * 0.7); opacity: 0.35; }
+    .hero-clouds img:nth-child(5) { bottom: 6%;  animation-delay: calc(-8s * 0.2); opacity: 0.5; }
+    @keyframes hero-cloud-drift {
+      0%   { transform: translateX(-100%); }
+      100% { transform: translateX(100vw); }
+    }
+
     .runway {
       position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
       width: 140px; height: 260px;
@@ -465,6 +489,7 @@
     .hero-content {
       display: flex; flex-direction: column; align-items: center;
       will-change: transform;
+      position: relative; z-index: 2;
     }
 
     /* ── TILT ── */
