@@ -168,42 +168,48 @@ document.querySelectorAll('.tilt').forEach(card => {
   card.addEventListener('mouseleave', () => { card.style.transform = ''; });
 });
 
-// ── CAROUSEL (infinite loop) ──
+// ── CAROUSEL + LIGHTBOX ──
 (function () {
-  const track = document.getElementById('carTrack');
-  const dots  = [...document.querySelectorAll('.car-dot')];
-  const real  = [...track.querySelectorAll('.porto-card')];
-  const total = real.length;
+  const wrap    = document.querySelector('.carousel-track-wrap');
+  const track   = document.getElementById('carTrack');
+  const dots    = [...document.querySelectorAll('.car-dot')];
+  const overlay = document.getElementById('lightbox');
+  const lbImg   = document.getElementById('lbImg');
+  const lbClose = document.getElementById('lbClose');
 
-  // Prepend clone of last card, append clone of first card
-  const cloneLast  = real[total - 1].cloneNode(true);
-  const cloneFirst = real[0].cloneNode(true);
-  track.insertBefore(cloneLast, real[0]);
-  track.appendChild(cloneFirst);
+  /* ── Clone all cards at both ends for seamless infinite loop ── */
+  const real = [...track.querySelectorAll('.porto-card')];
+  const N    = real.length;
+  real.forEach(c => track.appendChild(c.cloneNode(true)));           // append N clones
+  [...real].reverse().forEach(c => track.insertBefore(c.cloneNode(true), track.firstChild)); // prepend N clones
+  // Final layout: [clone N..1] [real 0..N-1] [clone 0..N-1]
+  // Real cards live at indices N … 2N-1
 
-  let cur  = 1;   // index 1 = first real card (0 = clone of last)
-  let busy = false;
+  let cur     = N;   // current absolute index (start = first real card)
+  let realIdx = 0;
+  let busy    = false;
 
-  function cardStep() {
-    const c = track.querySelectorAll('.porto-card')[0];
-    return c.getBoundingClientRect().width + 24; // width + gap
-  }
+  function cw() { return track.children[0].getBoundingClientRect().width; }
+  function ww() { return wrap.getBoundingClientRect().width; }
+  const GAP = 24;
 
   function moveTo(idx, animate) {
-    track.style.transition = animate
-      ? 'transform .55s cubic-bezier(.4,0,.2,1)'
-      : 'none';
-    cur = idx;
-    track.style.transform = `translateX(-${cur * cardStep()}px)`;
-    const dotIdx = ((cur - 1) % total + total) % total;
-    dots.forEach((d, i) => d.classList.toggle('active', i === dotIdx));
+    const step   = cw() + GAP;
+    const offset = idx * step - (ww() - cw()) / 2;   // center active card
+    track.style.transition = animate ? 'transform .52s cubic-bezier(.4,0,.2,1)' : 'none';
+    track.style.transform  = `translateX(${-offset}px)`;
+    cur     = idx;
+    realIdx = ((idx - N) % N + N) % N;
+    dots.forEach((d, i) => d.classList.toggle('active', i === realIdx));
   }
 
-  moveTo(1, false); // snap to first real card on load
+  /* Init — no animation on first paint */
+  moveTo(N, false);
+  requestAnimationFrame(() => requestAnimationFrame(() => {}));
 
   track.addEventListener('transitionend', () => {
-    if (cur <= 0)         moveTo(total, false); // clone-of-last → real last
-    if (cur >= total + 1) moveTo(1,     false); // clone-of-first → real first
+    if (cur < N || cur >= 2 * N)
+      moveTo(N + ((cur - N) % N + N) % N, false); // snap back into real zone
     busy = false;
   });
 
@@ -213,44 +219,42 @@ document.querySelectorAll('.tilt').forEach(card => {
   document.getElementById('nextBtn').addEventListener('click', next);
   document.getElementById('prevBtn').addEventListener('click', prev);
   dots.forEach(d => d.addEventListener('click', () => {
-    if (!busy) { busy = true; moveTo(+d.dataset.idx + 1, true); }
+    if (!busy) { busy = true; moveTo(N + +d.dataset.idx, true); }
   }));
   setInterval(next, 3800);
 
+  /* Touch swipe */
   let tx = 0;
   track.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
   track.addEventListener('touchend',   e => {
     const dx = e.changedTouches[0].clientX - tx;
     if (Math.abs(dx) > 40) dx < 0 ? next() : prev();
   });
+
   window.addEventListener('resize', () => moveTo(cur, false));
-})();
 
-// ── LIGHTBOX ──
-(function () {
-  const overlay = document.getElementById('lightbox');
-  const lbImg   = document.getElementById('lbImg');
-  const lbClose = document.getElementById('lbClose');
-
+  /* ── Lightbox — event delegation works on clones too ── */
   function openLightbox(src) {
     lbImg.src = src;
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
-
   function closeLightbox() {
     overlay.classList.remove('open');
     document.body.style.overflow = '';
-    // clear src after transition so old image doesn't flash on next open
     setTimeout(() => { lbImg.src = ''; }, 300);
   }
 
-  // Wire up each card that has a porto-img
-  document.querySelectorAll('.porto-card').forEach(card => {
+  track.addEventListener('click', e => {
+    const card = e.target.closest('.porto-card');
+    if (!card) return;
     const img = card.querySelector('.porto-img');
-    if (!img) return;
-    card.style.cursor = 'zoom-in';
-    card.addEventListener('click', () => openLightbox(img.src));
+    if (img) openLightbox(img.src);
+  });
+
+  /* Cursor hint on image cards */
+  [...track.querySelectorAll('.porto-card')].forEach(card => {
+    if (card.querySelector('.porto-img')) card.style.cursor = 'zoom-in';
   });
 
   lbClose.addEventListener('click', closeLightbox);

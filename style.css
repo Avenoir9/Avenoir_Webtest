@@ -294,11 +294,11 @@
 
     /* ── PORTFOLIO ── */
     #portfolio { background: linear-gradient(180deg, var(--mid) 0%, var(--deep) 100%); overflow: hidden; }
-    .carousel-track-wrap { overflow: hidden; }
+    .carousel-track-wrap { overflow: hidden; position: relative; }
     .carousel-track {
       display: flex; gap: 24px;
-      transition: transform .55s cubic-bezier(.4,0,.2,1);
       will-change: transform;
+      /* transition managed by JS */
     }
     .porto-card {
       flex: 0 0 300px;
