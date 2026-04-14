@@ -111,7 +111,7 @@
     .hero-clouds img {
       position: absolute;
       max-width: 100%;
-      animation: hero-cloud-drift calc(8s * var(--i)) linear infinite;
+      animation: hero-cloud-drift calc(28s * var(--i)) linear infinite;
       opacity: 0.55;
       filter: brightness(1.1) drop-shadow(0 4px 24px rgba(180,220,255,0.18));
     }
