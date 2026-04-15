@@ -7,7 +7,11 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <title>Putra Fauzan — Aviation Professional</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="Image/hero-bg.png" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -63,11 +67,11 @@
 <section id="hero">
   <!-- Cloud parallax layer (behind content) -->
   <div class="hero-clouds">
-    <img src="Image/cloud1.png" style="--i:1" alt="">
-    <img src="Image/cloud2.png" style="--i:2" alt="">
-    <img src="Image/cloud3.png" style="--i:3" alt="">
-    <img src="Image/cloud4.png" style="--i:4" alt="">
-    <img src="Image/cloud5.png" style="--i:5" alt="">
+    <img src="Image/cloud1.png" style="--i:1" alt="" fetchpriority="low">
+    <img src="Image/cloud2.png" style="--i:2" alt="" fetchpriority="low">
+    <img src="Image/cloud3.png" style="--i:3" alt="" fetchpriority="low">
+    <img src="Image/cloud4.png" style="--i:4" alt="" fetchpriority="low">
+    <img src="Image/cloud5.png" style="--i:5" alt="" fetchpriority="low">
   </div>
 
   <div class="hero-content">
@@ -88,9 +92,9 @@
 <!-- ABOUT -->
 <section id="about">
   <div class="top-clouds">
-    <img src="Image/cloud1.png" style="--i:1" alt="">
-    <img src="Image/cloud3.png" style="--i:2" alt="">
-    <img src="Image/cloud5.png" style="--i:3" alt="">
+    <img src="Image/cloud1.png" style="--i:1" alt="" loading="lazy" fetchpriority="low">
+    <img src="Image/cloud3.png" style="--i:2" alt="" loading="lazy" fetchpriority="low">
+    <img src="Image/cloud5.png" style="--i:3" alt="" loading="lazy" fetchpriority="low">
   </div>
   <div class="cloud-blobs">
     <div class="cb" style="width:420px;height:160px;top:10%;left:-80px;--cd:20s;--cx:40px;--cy:-15px"></div>
@@ -291,10 +295,10 @@
       </div>
       <div class="carousel-track-wrap">
         <div class="carousel-track" id="carTrack">
-          <div class="porto-card tilt"><span class="porto-num">01 / 04</span><img src="Image/portfolio1.png" alt="Portfolio 1" class="porto-img" /></div>
-          <div class="porto-card tilt"><span class="porto-num">02 / 04</span><img src="Image/portfolio2.png" alt="Portfolio 2" class="porto-img" /></div>
-          <div class="porto-card tilt"><span class="porto-num">03 / 04</span><img src="Image/portfolio3.png" alt="Portfolio 3" class="porto-img" /></div>
-          <div class="porto-card tilt"><span class="porto-num">04 / 04</span><img src="Image/portfolio4.png" alt="Portfolio 4" class="porto-img" /></div>
+          <div class="porto-card tilt"><span class="porto-num">01 / 04</span><img src="Image/portfolio1.png" alt="Portfolio 1" class="porto-img" loading="lazy" /></div>
+          <div class="porto-card tilt"><span class="porto-num">02 / 04</span><img src="Image/portfolio2.png" alt="Portfolio 2" class="porto-img" loading="lazy" /></div>
+          <div class="porto-card tilt"><span class="porto-num">03 / 04</span><img src="Image/portfolio3.png" alt="Portfolio 3" class="porto-img" loading="lazy" /></div>
+          <div class="porto-card tilt"><span class="porto-num">04 / 04</span><img src="Image/portfolio4.png" alt="Portfolio 4" class="porto-img" loading="lazy" /></div>
         </div>
       </div>
       <div class="carousel-controls">

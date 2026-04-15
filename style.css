@@ -89,6 +89,7 @@
 
     /* ── SECTIONS ── */
     section { position: relative; z-index: 2; padding: 90px 0; overflow: hidden; }
+    section:not(#hero) { content-visibility: auto; contain-intrinsic-size: 0 600px; }
 
     /* ── SECTION FOG BLEND (top & bottom fade) ── */
     section:not(#hero)::before,
