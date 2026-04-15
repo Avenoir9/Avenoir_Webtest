@@ -116,11 +116,11 @@
       filter: brightness(1.1) drop-shadow(0 4px 24px rgba(180,220,255,0.18));
     }
     /* Stagger vertical positions & starting offsets per cloud */
-    .hero-clouds img:nth-child(1) { bottom: 0%;  animation-delay: calc(-8s * 0.1); }
-    .hero-clouds img:nth-child(2) { bottom: 8%;  animation-delay: calc(-8s * 0.5); opacity: 0.4; }
-    .hero-clouds img:nth-child(3) { bottom: 2%;  animation-delay: calc(-8s * 0.3); opacity: 0.6; }
-    .hero-clouds img:nth-child(4) { bottom: 14%; animation-delay: calc(-8s * 0.7); opacity: 0.35; }
-    .hero-clouds img:nth-child(5) { bottom: 6%;  animation-delay: calc(-8s * 0.2); opacity: 0.5; }
+    .hero-clouds img:nth-child(1) { bottom: -12%; animation-delay: calc(-8s * 0.1); }
+    .hero-clouds img:nth-child(2) { bottom: -6%;  animation-delay: calc(-8s * 0.5); opacity: 0.4; }
+    .hero-clouds img:nth-child(3) { bottom: -10%; animation-delay: calc(-8s * 0.3); opacity: 0.6; }
+    .hero-clouds img:nth-child(4) { bottom: -2%;  animation-delay: calc(-8s * 0.7); opacity: 0.35; }
+    .hero-clouds img:nth-child(5) { bottom: -8%;  animation-delay: calc(-8s * 0.2); opacity: 0.5; }
     @keyframes hero-cloud-drift {
       0%   { transform: translateX(-100%); }
       100% { transform: translateX(100vw); }
