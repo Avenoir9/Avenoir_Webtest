@@ -163,18 +163,7 @@
     /* Remove top fog on About — replaced by cloud layer + white haze sep */
     #about::before { display: none; }
 
-    /* ── WHITE HAZE SEPARATOR (hero → about) ── */
-    .white-haze-sep {
-      height: 80px;
-      position: relative; z-index: 5;
-      background: linear-gradient(to bottom,
-        transparent 0%,
-        rgba(210,230,255,0.18) 40%,
-        rgba(210,230,255,0.22) 60%,
-        transparent 100%
-      );
-      pointer-events: none;
-    }
+
 
     /* ── HERO CLOUD ANIMATION ── */
     .hero-clouds {
