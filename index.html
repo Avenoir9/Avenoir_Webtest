@@ -3,311 +3,356 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Putra Fauzan — Aviation Professional</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <title>Welcome</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+
+    /* ── BACKGROUND ── */
+    .bg {
+      position: fixed;
+      inset: 0;
+      background-image: url('Image/bg.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.38) saturate(1.2);
+      z-index: 0;
+    }
+
+    /* ── STARS CANVAS ── */
+    #stars-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* ── CENTER CONTENT ── */
+    .center {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    /* ── PLANE BUTTON ── */
+    #plane-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      position: relative;
+      filter:
+        drop-shadow(0 0 18px rgba(80, 180, 255, 0.9))
+        drop-shadow(0 0 40px rgba(80, 180, 255, 0.5));
+      transition: filter 0.3s ease, transform 0.3s ease;
+      animation: float 3.5s ease-in-out infinite;
+    }
+
+    #plane-btn:hover {
+      filter:
+        drop-shadow(0 0 28px rgba(120, 210, 255, 1))
+        drop-shadow(0 0 60px rgba(80, 180, 255, 0.8))
+        drop-shadow(0 0 90px rgba(0, 140, 255, 0.4));
+      transform: scale(1.06);
+      animation-play-state: paused;
+    }
+
+    #plane-btn svg {
+      width: 180px;
+      height: 180px;
+      display: block;
+    }
+
+    /* Float idle animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      33%       { transform: translateY(-14px) rotate(1.5deg); }
+      66%       { transform: translateY(-6px) rotate(-1deg); }
+    }
+
+    /* Fly-away animation — added via JS */
+    @keyframes fly-away {
+      0%   { transform: translate(0, 0) rotate(-10deg) scale(1);   opacity: 1; }
+      30%  { transform: translate(80px, -120px) rotate(20deg) scale(1.15); opacity: 1; }
+      100% { transform: translate(900px, -700px) rotate(35deg) scale(0.3); opacity: 0; }
+    }
+
+    .flying {
+      animation: fly-away 1.1s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
+    }
+
+    /* ── WELCOME TEXT ── */
+    .welcome-text {
+      text-align: center;
+      color: #fff;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .welcome-text h1 {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #a8d8ff 0%, #ffffff 45%, #60b8ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: none;
+      filter: drop-shadow(0 2px 16px rgba(80, 160, 255, 0.6));
+    }
+
+    .welcome-text p {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: clamp(0.85rem, 2vw, 1.05rem);
+      color: rgba(180, 220, 255, 0.75);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    /* ── HINT LABEL ── */
+    .hint {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.78rem;
+      color: rgba(160, 210, 255, 0.5);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      animation: pulse-hint 2.2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-hint {
+      0%, 100% { opacity: 0.4; }
+      50%       { opacity: 0.9; }
+    }
+
+    /* ── SCREEN FLASH on redirect ── */
+    .flash-overlay {
+      position: fixed;
+      inset: 0;
+      background: #fff;
+      opacity: 0;
+      z-index: 999;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .flash-overlay.active {
+      opacity: 1;
+    }
+  </style>
 </head>
 <body>
 
-<div id="starfield"></div>
+  <!-- Background layer -->
+  <div class="bg"></div>
 
-<!-- SIDE NAV -->
-<nav id="side-nav">
-  <a href="#about"          class="snb" data-section="about">
-    <span class="snb-icon">👤</span>
-    <span class="snb-label" data-i18n="navAbout">About Me</span>
-  </a>
-  <a href="#experience"     class="snb" data-section="experience">
-    <span class="snb-icon">✈</span>
-    <span class="snb-label" data-i18n="navExp">Experience</span>
-  </a>
-  <a href="#skills"         class="snb" data-section="skills">
-    <span class="snb-icon">⚡</span>
-    <span class="snb-label" data-i18n="navSkills">Skills</span>
-  </a>
-  <a href="#certifications" class="snb" data-section="certifications">
-    <span class="snb-icon">📜</span>
-    <span class="snb-label" data-i18n="navCert">Certifications</span>
-  </a>
-  <a href="#contact"        class="snb" data-section="contact">
-    <span class="snb-icon">✉</span>
-    <span class="snb-label" data-i18n="navContact">Contact</span>
-  </a>
-  <a href="#portfolio"      class="snb" data-section="portfolio">
-    <span class="snb-icon">🖼</span>
-    <span class="snb-label" data-i18n="navPortfolio">Portfolio</span>
-  </a>
-</nav>
+  <!-- Stars -->
+  <canvas id="stars-canvas"></canvas>
 
-<!-- LANG SWITCHER -->
-<div id="lang-switcher">
-  <button class="lang-btn" id="lang-btn">
-    <span id="lang-flag">🇬🇧</span>
-    <span id="lang-code">EN</span>
-    <span class="lang-arrow">▾</span>
-  </button>
-  <div class="lang-dropdown hidden" id="lang-dropdown">
-    <div class="lang-opt active" data-lang="en">🇬🇧&nbsp; English</div>
-    <div class="lang-opt" data-lang="id">🇮🇩&nbsp; Indonesia</div>
-    <div class="lang-opt" data-lang="ja">🇯🇵&nbsp; 日本語</div>
-  </div>
-</div>
+  <!-- Flash overlay for redirect -->
+  <div class="flash-overlay" id="flash"></div>
 
-
-
-<!-- HERO -->
-<section id="hero">
-  <!-- Cloud parallax layer (behind content) -->
-  <div class="hero-clouds">
-    <img src="Image/cloud1.png" style="--i:1" alt="">
-    <img src="Image/cloud2.png" style="--i:2" alt="">
-    <img src="Image/cloud3.png" style="--i:3" alt="">
-    <img src="Image/cloud4.png" style="--i:4" alt="">
-    <img src="Image/cloud5.png" style="--i:5" alt="">
-  </div>
-
-  <div class="hero-content">
-    <p class="badge" data-i18n="badge">✈ Ground Staff · FMG Co., Ltd. · Japan</p>
-    <div class="hero-avatar">
-      <img id="profile-img" src="Image/me.jpg" alt="Putra Fauzan" />
+  <!-- Center content -->
+  <div class="center">
+    <div class="welcome-text">
+      <h1>Welcome</h1>
+      <p>Ready for takeoff?</p>
     </div>
-    <h1 class="hero-name">PUTRA<br>FAUZAN</h1>
-    <p class="hero-title" data-i18n="heroTitle">Ground Staff &amp; IT Support Specialist</p>
-    <p class="hero-loc">
-      <span class="dot-live"></span>
-      <span data-i18n="heroLoc">Currently at FMG Co., Ltd. · Japan (via Unisky Co., Ltd.)</span>
-    </p>
-  </div>
-  <div class="scroll-hint">
-    <span data-i18n="scrollHint">SCROLL</span>
-    <div class="chevron"></div>
+
+    <!-- Airplane logo button -->
+    <button id="plane-btn" title="Click to fly">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <!-- Glow circle -->
+        <circle cx="100" cy="100" r="88" fill="rgba(60,140,255,0.08)" stroke="rgba(100,180,255,0.18)" stroke-width="1.5"/>
+
+        <!-- Plane body -->
+        <g transform="translate(100,100) rotate(-40)">
+          <!-- Main fuselage -->
+          <ellipse cx="0" cy="0" rx="9" ry="54" fill="url(#bodyGrad)" />
+
+          <!-- Nose cone -->
+          <ellipse cx="0" cy="-54" rx="9" ry="14" fill="url(#noseGrad)" />
+
+          <!-- Main wings -->
+          <path d="M 0,-10 L -62,30 L -52,36 L 0,8 L 52,36 L 62,30 Z"
+                fill="url(#wingGrad)" />
+
+          <!-- Wing tip edge highlight -->
+          <path d="M 0,-10 L -62,30" stroke="rgba(180,220,255,0.5)" stroke-width="0.8" />
+          <path d="M 0,-10 L 62,30"  stroke="rgba(180,220,255,0.5)" stroke-width="0.8" />
+
+          <!-- Horizontal stabilizer -->
+          <path d="M 0,36 L -28,52 L -24,56 L 0,44 L 24,56 L 28,52 Z"
+                fill="url(#stabGrad)" />
+
+          <!-- Vertical stabilizer / tail fin -->
+          <path d="M -4,28 L -4,52 L 4,52 L 4,28 Z"
+                fill="url(#tailGrad)" />
+          <path d="M -3,28 L -14,44 L -4,44 Z"
+                fill="rgba(120,190,255,0.6)" />
+
+          <!-- Engine pod left -->
+          <ellipse cx="-30" cy="16" rx="6" ry="11" fill="url(#engGrad)" />
+          <ellipse cx="-30" cy="6"  rx="6" ry="4"  fill="rgba(60,130,230,0.7)" />
+
+          <!-- Engine pod right -->
+          <ellipse cx="30" cy="16" rx="6" ry="11" fill="url(#engGrad)" />
+          <ellipse cx="30" cy="6"  rx="6" ry="4"  fill="rgba(60,130,230,0.7)" />
+
+          <!-- Cockpit windows -->
+          <ellipse cx="-3" cy="-48" rx="2.5" ry="3.5" fill="rgba(180,230,255,0.85)" />
+          <ellipse cx="3"  cy="-48" rx="2.5" ry="3.5" fill="rgba(180,230,255,0.85)" />
+
+          <!-- Cabin window strip -->
+          <rect x="-4" y="-30" width="8" height="1.5" rx="0.75" fill="rgba(200,235,255,0.4)" />
+          <rect x="-4" y="-24" width="8" height="1.5" rx="0.75" fill="rgba(200,235,255,0.4)" />
+          <rect x="-4" y="-18" width="8" height="1.5" rx="0.75" fill="rgba(200,235,255,0.4)" />
+          <rect x="-4" y="-12" width="8" height="1.5" rx="0.75" fill="rgba(200,235,255,0.4)" />
+        </g>
+
+        <!-- Orbit ring -->
+        <ellipse cx="100" cy="100" rx="78" ry="24"
+                 stroke="rgba(80,170,255,0.22)" stroke-width="1"
+                 stroke-dasharray="6 5" fill="none"
+                 transform="rotate(-20,100,100)" />
+
+        <!-- Defs: gradients -->
+        <defs>
+          <linearGradient id="bodyGrad" x1="-1" y1="-54" x2="1" y2="54" gradientUnits="userSpaceOnUse">
+            <stop offset="0%"   stop-color="#c8e8ff"/>
+            <stop offset="40%"  stop-color="#70b8ff"/>
+            <stop offset="100%" stop-color="#2060c0"/>
+          </linearGradient>
+          <linearGradient id="noseGrad" x1="0" y1="-68" x2="0" y2="-40" gradientUnits="userSpaceOnUse">
+            <stop offset="0%"   stop-color="#e0f2ff"/>
+            <stop offset="100%" stop-color="#80c0ff"/>
+          </linearGradient>
+          <linearGradient id="wingGrad" x1="-62" y1="30" x2="62" y2="36" gradientUnits="userSpaceOnUse">
+            <stop offset="0%"   stop-color="#4090e0"/>
+            <stop offset="50%"  stop-color="#a8d4ff"/>
+            <stop offset="100%" stop-color="#4090e0"/>
+          </linearGradient>
+          <linearGradient id="stabGrad" x1="-28" y1="52" x2="28" y2="56" gradientUnits="userSpaceOnUse">
+            <stop offset="0%"   stop-color="#3070c0"/>
+            <stop offset="50%"  stop-color="#90c0f0"/>
+            <stop offset="100%" stop-color="#3070c0"/>
+          </linearGradient>
+          <linearGradient id="tailGrad" x1="-4" y1="28" x2="4" y2="52" gradientUnits="userSpaceOnUse">
+            <stop offset="0%"   stop-color="#80b8f0"/>
+            <stop offset="100%" stop-color="#2050a0"/>
+          </linearGradient>
+          <linearGradient id="engGrad" x1="-6" y1="6" x2="6" y2="27" gradientUnits="userSpaceOnUse">
+            <stop offset="0%"   stop-color="#90c8ff"/>
+            <stop offset="100%" stop-color="#204888"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </button>
+
+    <span class="hint">click to fly</span>
   </div>
 
-  <!-- cloud wave bottom -->
-  <div class="cloud-wave">
-    <svg viewBox="0 0 1440 130" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-      <path d="M0,80 C60,100 120,60 200,70 C280,80 320,110 420,100 C520,90 560,60 660,65 C760,70 800,100 900,95 C1000,90 1060,65 1160,72 C1260,80 1360,105 1440,95 L1440,130 L0,130 Z" fill="rgba(255,255,255,0.09)"/>
-      <path d="M0,100 C80,85 160,110 260,105 C360,100 400,78 500,82 C600,86 650,108 760,102 C870,96 920,75 1040,80 C1160,85 1280,108 1380,100 L1440,98 L1440,130 L0,130 Z" fill="rgba(255,255,255,0.06)"/>
-      <path d="M0,115 C100,108 200,122 320,118 C440,114 520,105 640,110 C760,115 840,124 960,118 C1080,112 1200,108 1320,115 L1440,112 L1440,130 L0,130 Z" fill="rgba(14,49,98,0.9)"/>
-    </svg>
-  </div>
-</section>
+  <script>
+    /* ── STARS ── */
+    (function () {
+      const canvas = document.getElementById('stars-canvas');
+      const ctx = canvas.getContext('2d');
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="cloud-strip-top"></div>
-  <div class="cloud-blobs">
-    <div class="cb" style="width:420px;height:160px;top:10%;left:-80px;--cd:20s;--cx:40px;--cy:-15px"></div>
-    <div class="cb" style="width:360px;height:140px;top:30%;right:-60px;--cd:24s;--cx:-30px;--cy:20px"></div>
-    <div class="cb" style="width:500px;height:180px;bottom:8%;left:20%;--cd:22s;--cx:50px;--cy:-10px"></div>
-  </div>
-  <div class="container">
-    <div class="reveal">
-      <p class="sec-label" data-i18n="aboutLabel">// WHO I AM</p>
-      <h2 class="sec-title" data-i18n="aboutTitle">About Me</h2>
-      <div class="wing-divider">
-        <div class="line"></div>
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2A1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1l3.5 1v-1.5L13 19v-5.5z"/></svg>
-        <div class="line right"></div>
-      </div>
-      <div class="about-grid">
-        <div class="glass tilt">
-          <p class="about-text" data-i18n-html="aboutText">I'm <span>Putra Fauzan</span>, currently working as a <span>Ground Staff</span> at an airport in Japan, handling check-in procedures and boarding guidance. I'm committed to delivering fast, courteous service so every passenger feels confident and well taken care of.<br><br>Alongside my aviation role, I'm also involved in <span>IT support</span> — handling system issues, hardware/software maintenance, and managing airline-specific software to keep operations running smoothly. My strength lies in combining solid <span>communication skills</span>, adaptability, and a growing passion for <span>technology &amp; AI</span> to add value wherever I work.</p>
-        </div>
-        <div class="stats-col">
-          <div class="stat-box">
-            <div class="stat-num">✈</div>
-            <div class="stat-lbl" data-i18n="stat1Lbl">Ground Staff</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-num">🇯🇵</div>
-            <div class="stat-lbl" data-i18n="stat2Lbl">Based in Japan</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-num">AI</div>
-            <div class="stat-lbl" data-i18n="stat3Lbl">Tech &amp; Vibe Coder</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+      const STAR_COUNT = 220;
+      const stars = [];
 
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="cloud-blobs">
-    <div class="cb" style="width:480px;height:170px;top:5%;right:-100px;--cd:26s;--cx:-40px;--cy:25px"></div>
-    <div class="cb" style="width:300px;height:120px;bottom:15%;left:5%;--cd:18s;--cx:35px;--cy:-20px"></div>
-  </div>
-  <div class="container">
-    <div class="reveal">
-      <p class="sec-label" data-i18n="expLabel">// FLIGHT LOG</p>
-      <h2 class="sec-title" data-i18n="expTitle">Experience</h2>
-      <div class="wing-divider">
-        <div class="line"></div>
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2A1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1l3.5 1v-1.5L13 19v-5.5z"/></svg>
-        <div class="line right"></div>
-      </div>
-      <div class="timeline">
-        <div class="tl-item reveal">
-          <p class="tl-year" data-i18n="exp1Year">MAR 2025 — PRESENT</p>
-          <p class="tl-role" data-i18n="exp1Role">Ground Staff</p>
-          <p class="tl-company" data-i18n="exp1Company">✈ FMG Co., Ltd. (via Unisky Co., Ltd.) · Japan</p>
-          <p class="tl-desc" data-i18n-html="exp1Desc">· Check-in counter: boarding procedures &amp; baggage acceptance.<br>· Boarding gate: passenger guidance &amp; escort.<br>· Handling flight inquiries, delay/change announcements.<br>· Supporting passengers with children or special needs.<br>· IT support: PC maintenance, troubleshooting, airline-native software management.<br>· Designed kanban boards to visualize workflows and boost team efficiency.<br>· Actively using AI tools (Claude Code, GitHub, Openclaw) for continuous learning.</p>
-        </div>
-        <div class="tl-item reveal">
-          <p class="tl-year" data-i18n="exp2Year">APR 2023 — APR 2024</p>
-          <p class="tl-role" data-i18n="exp2Role">Caddie</p>
-          <p class="tl-company" data-i18n="exp2Company">⛳ Katano Country Club · Japan</p>
-          <p class="tl-desc" data-i18n-html="exp2Desc">· Supported guests throughout golf rounds with course guidance &amp; club recommendations.<br>· Managed play pace and provided distance/condition advice.<br>· Built strong communication skills engaging with diverse clients daily.</p>
-        </div>
-        <div class="tl-item reveal">
-          <p class="tl-year" data-i18n="exp3Year">APR 2019 — JUL 2019</p>
-          <p class="tl-role" data-i18n="exp3Role">IT Support Intern</p>
-          <p class="tl-company" data-i18n="exp3Company">💻 PT. Garsel Fashion Shoes · Indonesia</p>
-          <p class="tl-desc" data-i18n-html="exp3Desc">· Managed all company PCs (hardware &amp; software).<br>· Diagnosed and resolved internet connectivity issues across the office.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+      function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
 
-<!-- SKILLS -->
-<section id="skills">
-  <div class="cloud-blobs">
-    <div class="cb" style="width:550px;height:190px;top:0%;left:10%;--cd:28s;--cx:60px;--cy:-10px"></div>
-    <div class="cb" style="width:350px;height:130px;bottom:5%;right:5%;--cd:21s;--cx:-25px;--cy:18px"></div>
-  </div>
-  <div class="container">
-    <div class="reveal">
-      <p class="sec-label" data-i18n="skillsLabel">// CAPABILITIES</p>
-      <h2 class="sec-title" data-i18n="skillsTitle">Skills</h2>
-      <div class="wing-divider">
-        <div class="line"></div>
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2A1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1l3.5 1v-1.5L13 19v-5.5z"/></svg>
-        <div class="line right"></div>
-      </div>
-      <div class="skills-grid">
-        <div class="skill-chip tilt reveal"><span class="skill-icon">🛫</span><span class="skill-name" data-i18n="skill1">Ground Operations</span></div>
-        <div class="skill-chip tilt reveal"><span class="skill-icon">🛂</span><span class="skill-name" data-i18n="skill2">Passenger Services</span></div>
-        <div class="skill-chip tilt reveal"><span class="skill-icon">💼</span><span class="skill-name" data-i18n="skill3">Microsoft 365</span></div>
-        <div class="skill-chip tilt reveal"><span class="skill-icon">🎨</span><span class="skill-name" data-i18n="skill4">Graphic Design</span></div>
-        <div class="skill-chip tilt reveal"><span class="skill-icon">🤖</span><span class="skill-name" data-i18n="skill5">AI &amp; Vibe Coding</span></div>
-        <div class="skill-chip tilt reveal"><span class="skill-icon">🐙</span><span class="skill-name" data-i18n="skill6">GitHub</span></div>
-        <div class="skill-chip tilt reveal"><span class="skill-icon">🔧</span><span class="skill-name" data-i18n="skill7">PC Maintenance</span></div>
-        <div class="skill-chip tilt reveal"><span class="skill-icon">🌏</span><span class="skill-name" data-i18n="skill8">Japanese (日本語)</span></div>
-      </div>
-    </div>
-  </div>
-</section>
+      // Generate stars
+      for (let i = 0; i < STAR_COUNT; i++) {
+        stars.push({
+          x:       Math.random(),
+          y:       Math.random(),
+          r:       Math.random() * 1.8 + 0.3,
+          alpha:   Math.random(),
+          speed:   Math.random() * 0.008 + 0.003,
+          phase:   Math.random() * Math.PI * 2,
+          color:   Math.random() < 0.25
+                     ? `rgba(180,220,255,`
+                     : Math.random() < 0.5
+                       ? `rgba(255,255,255,`
+                       : `rgba(200,235,255,`,
+        });
+      }
 
-<!-- CERTIFICATIONS -->
-<section id="certifications">
-  <div class="cloud-blobs">
-    <div class="cb" style="width:400px;height:150px;top:20%;left:-60px;--cd:23s;--cx:50px;--cy:-18px"></div>
-    <div class="cb" style="width:440px;height:160px;bottom:10%;right:-80px;--cd:19s;--cx:-45px;--cy:22px"></div>
-  </div>
-  <div class="container">
-    <div class="reveal">
-      <p class="sec-label" data-i18n="certLabel">// CREDENTIALS</p>
-      <h2 class="sec-title" data-i18n="certTitle">Certifications</h2>
-      <div class="wing-divider">
-        <div class="line"></div>
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2A1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1l3.5 1v-1.5L13 19v-5.5z"/></svg>
-        <div class="line right"></div>
-      </div>
-      <div class="cert-grid">
-        <div class="cert-item reveal">
-          <span class="cert-icon">🎌</span>
-          <div class="cert-info">
-            <p class="cert-name" data-i18n="cert1Name">JLPT N2 — Japanese Language Proficiency</p>
-            <p class="cert-detail" data-i18n="cert1Detail">Issued · July 2023</p>
-          </div>
-          <span class="cert-badge">N2</span>
-        </div>
-        <div class="cert-item reveal">
-          <span class="cert-icon">🌐</span>
-          <div class="cert-info">
-            <p class="cert-name" data-i18n="cert2Name">TOEFL — Listening &amp; Reading Test</p>
-            <p class="cert-detail" data-i18n="cert2Detail">Score: 497 pts · July 2024</p>
-          </div>
-          <span class="cert-badge">497 pts</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+      let t = 0;
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const W = canvas.width, H = canvas.height;
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="container">
-    <div class="reveal">
-      <p class="sec-label" data-i18n="contactLabel">// REACH ME</p>
-      <h2 class="sec-title" data-i18n="contactTitle">Contact</h2>
-      <div class="wing-divider">
-        <div class="line"></div>
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2A1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1l3.5 1v-1.5L13 19v-5.5z"/></svg>
-        <div class="line right"></div>
-      </div>
-      <div class="contact-grid">
-        <div class="contact-item"><span class="ico">📧</span> putrafauzan@email.com</div>
-        <div class="contact-item"><span class="ico">📱</span> +81 XX-XXXX-XXXX</div>
-        <div class="contact-item"><span class="ico">💼</span> linkedin.com/in/putrafauzan</div>
-        <div class="contact-item"><span class="ico">📍</span> Japan · Near Airport</div>
-      </div>
-    </div>
-  </div>
-</section>
+        stars.forEach(s => {
+          const a = 0.3 + 0.7 * (0.5 + 0.5 * Math.sin(t * s.speed * 60 + s.phase));
+          ctx.beginPath();
+          ctx.arc(s.x * W, s.y * H, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = s.color + a.toFixed(3) + ')';
+          ctx.fill();
 
-<!-- PORTFOLIO -->
-<section id="portfolio">
-  <div class="cloud-blobs">
-    <div class="cb" style="width:500px;height:180px;top:8%;right:-80px;--cd:25s;--cx:-55px;--cy:15px"></div>
-    <div class="cb" style="width:380px;height:140px;bottom:12%;left:-50px;--cd:20s;--cx:40px;--cy:-25px"></div>
-    <div class="cb" style="width:300px;height:110px;top:50%;left:40%;--cd:30s;--cx:30px;--cy:20px"></div>
-  </div>
-  <div class="container">
-    <div class="reveal">
-      <p class="sec-label" data-i18n="portfolioLabel">// MOMENTS &amp; WORK</p>
-      <h2 class="sec-title" data-i18n="portfolioTitle">Portfolio</h2>
-      <div class="wing-divider">
-        <div class="line"></div>
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2A1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1l3.5 1v-1.5L13 19v-5.5z"/></svg>
-        <div class="line right"></div>
-      </div>
-      <div class="carousel-track-wrap">
-        <div class="carousel-track" id="carTrack">
-          <div class="porto-card tilt"><span class="porto-num">01 / 04</span><img src="Image/portfolio1.png" alt="Portfolio 1" class="porto-img" /></div>
-          <div class="porto-card tilt"><span class="porto-num">02 / 04</span><img src="Image/portfolio2.png" alt="Portfolio 2" class="porto-img" /></div>
-          <div class="porto-card tilt"><span class="porto-num">03 / 04</span><img src="Image/portfolio3.png" alt="Portfolio 3" class="porto-img" /></div>
-          <div class="porto-card tilt"><span class="porto-num">04 / 04</span><img src="Image/portfolio4.png" alt="Portfolio 4" class="porto-img" /></div>
-        </div>
-      </div>
-      <div class="carousel-controls">
-        <button class="car-btn" id="prevBtn">&#8592;</button>
-        <div class="car-dots" id="carDots">
-          <div class="car-dot active" data-idx="0"></div>
-          <div class="car-dot" data-idx="1"></div>
-          <div class="car-dot" data-idx="2"></div>
-          <div class="car-dot" data-idx="3"></div>
-        </div>
-        <button class="car-btn" id="nextBtn">&#8594;</button>
-      </div>
-    </div>
-  </div>
-</section>
+          // Sparkle cross on brighter stars
+          if (s.r > 1.4 && a > 0.7) {
+            const len = s.r * 4;
+            ctx.strokeStyle = s.color + (a * 0.45).toFixed(3) + ')';
+            ctx.lineWidth = 0.6;
+            ctx.beginPath();
+            ctx.moveTo(s.x * W - len, s.y * H);
+            ctx.lineTo(s.x * W + len, s.y * H);
+            ctx.moveTo(s.x * W, s.y * H - len);
+            ctx.lineTo(s.x * W, s.y * H + len);
+            ctx.stroke();
+          }
+        });
 
-<!-- LIGHTBOX -->
-<div id="lightbox" class="lightbox-overlay">
-  <button class="lb-close" id="lbClose">&#10005;</button>
-  <img id="lbImg" src="" alt="" class="lb-img" />
-</div>
+        t += 1 / 60;
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
 
-<footer>
-  <p>✈ &nbsp;<span>PUTRA FAUZAN</span>&nbsp; · <span data-i18n="footerRole">Aviation &amp; IT Professional · Japan</span></p>
-  <p style="margin-top:8px;" data-i18n="footerCopy">© 2026 · Crafted with passion for the skies</p>
-</footer>
+    /* ── PLANE CLICK ── */
+    const btn   = document.getElementById('plane-btn');
+    const flash = document.getElementById('flash');
+    let clicked = false;
 
-<script src="script.js"></script>
+    btn.addEventListener('click', function () {
+      if (clicked) return;
+      clicked = true;
+
+      // Stop idle float, start fly-away
+      btn.classList.add('flying');
+
+      // After plane disappears, flash white then redirect
+      setTimeout(() => {
+        flash.classList.add('active');
+        setTimeout(() => {
+          window.location.href = 'main.html';
+        }, 280);
+      }, 950);
+    });
+  </script>
 </body>
 </html>
