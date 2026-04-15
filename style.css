@@ -274,7 +274,11 @@
     .tl-desc { font-size:.84rem; color:rgba(255,255,255,.58); line-height:1.75; }
 
     /* ── SKILLS ── */
-    #skills { background: linear-gradient(180deg, var(--deep) 0%, var(--navy) 100%); }
+    #skills {
+      background:
+        linear-gradient(180deg, rgba(7,30,61,0.72) 0%, rgba(14,49,98,0.80) 100%),
+        url('Image/skill.jpeg') center/cover no-repeat;
+    }
     .skills-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
     @media (max-width: 900px) { .skills-grid { grid-template-columns: repeat(2,1fr); } }
     @media (max-width: 480px) { .skills-grid { grid-template-columns: 1fr; } }
