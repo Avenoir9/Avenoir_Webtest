@@ -223,6 +223,7 @@
     #profile-img {
       width: 100%; height: 100%;
       object-fit: cover; border-radius: 50%;
+      object-position: center 20%;
       display: block;
     }
     /* placeholder shown when src is empty */
