@@ -141,15 +141,15 @@
       position: absolute; top: 0; max-width: 100%;
       opacity: 0.55;
       filter: brightness(1.2) drop-shadow(0 4px 24px rgba(180,220,255,0.15));
-      animation: cloud-top-drift calc(28s * var(--i)) linear infinite;
+      animation: cloud-top-drift calc(45s * var(--i)) linear infinite;
     }
     @keyframes cloud-top-drift {
       0%   { transform: translateX(-100%) scaleY(-1); }
       100% { transform: translateX(100vw)  scaleY(-1); }
     }
-    .top-clouds img:nth-child(1) { animation-delay: calc(-28s * 0.1); }
-    .top-clouds img:nth-child(2) { animation-delay: calc(-28s * 0.4); opacity: 0.38; }
-    .top-clouds img:nth-child(3) { animation-delay: calc(-28s * 0.7); opacity: 0.45; }
+    .top-clouds img:nth-child(1) { animation-delay: calc(-45s * 0.1); }
+    .top-clouds img:nth-child(2) { animation-delay: calc(-45s * 0.4); opacity: 0.38; }
+    .top-clouds img:nth-child(3) { animation-delay: calc(-45s * 0.7); opacity: 0.45; }
 
     /* Remove top fog on About — replaced by cloud layer */
     #about::before { display: none; }
@@ -283,7 +283,7 @@
     /* ── ABOUT ── */
     #about {
       background:
-        linear-gradient(180deg, rgba(7,30,61,0.88) 0%, rgba(7,30,61,0.55) 30%, rgba(7,30,61,0.55) 70%, rgba(7,30,61,0.88) 100%),
+        linear-gradient(180deg, rgba(7,30,61,0.75) 0%, rgba(7,30,61,0.15) 30%, rgba(7,30,61,0.15) 70%, rgba(7,30,61,0.75) 100%),
         url('Image/aboutme.jpeg') center/cover no-repeat fixed;
     }
     .about-grid {
