@@ -296,7 +296,7 @@
     #certifications {
       background:
         linear-gradient(180deg, rgba(7,30,61,0.72) 0%, rgba(14,49,98,0.80) 100%),
-        url('Image/certif.png') center bottom/cover no-repeat;
+        url('Image/certif.png') center top/cover no-repeat;
     }
     .cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     @media (max-width: 640px) { .cert-grid { grid-template-columns: 1fr; } }
