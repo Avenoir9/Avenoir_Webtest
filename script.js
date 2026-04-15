@@ -157,16 +157,18 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// ── 3D TILT ──
-document.querySelectorAll('.tilt').forEach(card => {
-  card.addEventListener('mousemove', e => {
-    const r = card.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width  - .5;
-    const y = (e.clientY - r.top)  / r.height - .5;
-    card.style.transform = `perspective(600px) rotateY(${x*8}deg) rotateX(${-y*8}deg) scale(1.02)`;
+// ── 3D TILT (desktop only) ──
+if (!('ontouchstart' in window)) {
+  document.querySelectorAll('.tilt').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width  - .5;
+      const y = (e.clientY - r.top)  / r.height - .5;
+      card.style.transform = `perspective(600px) rotateY(${x*8}deg) rotateX(${-y*8}deg) scale(1.02)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
   });
-  card.addEventListener('mouseleave', () => { card.style.transform = ''; });
-});
+}
 
 // ── CAROUSEL + LIGHTBOX ──
 (function () {
@@ -262,15 +264,20 @@ document.querySelectorAll('.tilt').forEach(card => {
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 })();
 
-// ── SIDE NAV ACTIVE TRACKING ──
-const navBtns    = document.querySelectorAll('.snb');
-const navSections = document.querySelectorAll('section[id]');
+// ── NAV ACTIVE TRACKING (desktop + mobile) ──
+const navBtns       = document.querySelectorAll('.snb');
+const mobileNavBtns = document.querySelectorAll('.mnb');
+const navSections   = document.querySelectorAll('section[id]');
 
 const secObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
+      const id = entry.target.id;
       navBtns.forEach(btn =>
-        btn.classList.toggle('active', btn.dataset.section === entry.target.id)
+        btn.classList.toggle('active', btn.dataset.section === id)
+      );
+      mobileNavBtns.forEach(btn =>
+        btn.classList.toggle('active', btn.dataset.section === id)
       );
     }
   });
@@ -278,8 +285,8 @@ const secObserver = new IntersectionObserver((entries) => {
 
 navSections.forEach(s => secObserver.observe(s));
 
-// Smooth scroll on nav click
-navBtns.forEach(btn => {
+// Smooth scroll on nav click (both desktop + mobile nav)
+[...navBtns, ...mobileNavBtns].forEach(btn => {
   btn.addEventListener('click', e => {
     e.preventDefault();
     const target = document.querySelector(btn.getAttribute('href'));
@@ -365,6 +372,8 @@ navBtns.forEach(btn => {
   }
 
   window.addEventListener('scroll', () => {
+    // Disable parallax on mobile/tablet — too heavy and unreliable
+    if (window.innerWidth <= 900) return;
     if (!ticking) { requestAnimationFrame(doParallax); ticking = true; }
   }, { passive: true });
 

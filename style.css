@@ -599,3 +599,58 @@
         background-attachment: scroll;
       }
     }
+
+    /* ══════════════════════════════════════
+       MOBILE BOTTOM NAV
+    ══════════════════════════════════════ */
+    #mobile-nav {
+      display: none;
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(7,30,61,0.94);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(0,212,255,.18);
+      padding: 6px 0 env(safe-area-inset-bottom, 0px);
+      justify-content: space-around; align-items: center;
+    }
+    .mnb {
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      padding: 6px 8px; text-decoration: none;
+      color: rgba(255,255,255,.4); transition: color .2s;
+      min-width: 48px; min-height: 48px; justify-content: center;
+      touch-action: manipulation;
+    }
+    .mnb.active, .mnb:active { color: var(--accent); }
+    .mnb-icon { font-size: 1.15rem; line-height: 1; }
+    .mnb-label {
+      font-size: .42rem; font-family: 'Orbitron', sans-serif;
+      letter-spacing: .08em; text-transform: uppercase;
+    }
+
+    /* ══════════════════════════════════════
+       MOBILE OVERRIDES (≤ 600px)
+    ══════════════════════════════════════ */
+    @media (max-width: 600px) {
+      /* Show bottom nav */
+      #mobile-nav { display: flex; }
+
+      /* Pad footer + last section so content isn't hidden under bottom nav */
+      footer { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
+      #portfolio { padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px)); }
+
+      /* Lang switcher — smaller on mobile */
+      #lang-switcher { top: 12px; right: 12px; }
+      .lang-btn { padding: 6px 10px; font-size: .58rem; gap: 5px; }
+
+      /* Reduce cloud layers for performance */
+      .hero-clouds img:nth-child(4),
+      .hero-clouds img:nth-child(5) { display: none; }
+
+      /* Lightbox close button — bigger tap target on mobile */
+      .lb-close { width: 48px; height: 48px; font-size: 1.3rem; top: 16px; right: 16px; }
+
+      /* Ensure no horizontal overflow */
+      section, .container, .about-grid, .timeline { max-width: 100vw; overflow-x: hidden; }
+
+      /* Hero safe area top */
+      #hero { padding-top: env(safe-area-inset-top, 0px); }
+    }
