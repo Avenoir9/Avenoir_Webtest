@@ -231,8 +231,8 @@
     /* ── ABOUT ── */
     #about {
       background:
-        linear-gradient(180deg, rgba(7,30,61,0.72) 0%, rgba(14,49,98,0.80) 100%),
-        url('Image/aboutme.jpeg') center/cover no-repeat;
+        linear-gradient(180deg, rgba(7,30,61,0.88) 0%, rgba(7,30,61,0.55) 30%, rgba(7,30,61,0.55) 70%, rgba(7,30,61,0.88) 100%),
+        url('Image/aboutme.jpeg') center/cover no-repeat fixed;
     }
     .about-grid {
       display: grid; grid-template-columns: 3fr 2fr; gap: 32px; align-items: start;
@@ -254,8 +254,8 @@
     /* ── EXPERIENCE ── */
     #experience {
       background:
-        linear-gradient(180deg, rgba(7,30,61,0.72) 0%, rgba(14,49,98,0.80) 100%),
-        url('Image/exp.png') center/cover no-repeat;
+        linear-gradient(180deg, rgba(7,30,61,0.88) 0%, rgba(7,30,61,0.55) 30%, rgba(7,30,61,0.55) 70%, rgba(7,30,61,0.88) 100%),
+        url('Image/exp.png') center/cover no-repeat fixed;
     }
     .timeline { position: relative; padding-left: 32px; max-width: 800px; }
     .timeline::before {
@@ -276,8 +276,8 @@
     /* ── SKILLS ── */
     #skills {
       background:
-        linear-gradient(180deg, rgba(7,30,61,0.72) 0%, rgba(14,49,98,0.80) 100%),
-        url('Image/skill.png') center/cover no-repeat;
+        linear-gradient(180deg, rgba(7,30,61,0.88) 0%, rgba(7,30,61,0.55) 30%, rgba(7,30,61,0.55) 70%, rgba(7,30,61,0.88) 100%),
+        url('Image/skill.png') center/cover no-repeat fixed;
     }
     .skills-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
     @media (max-width: 900px) { .skills-grid { grid-template-columns: repeat(2,1fr); } }
@@ -295,8 +295,8 @@
     /* ── CERTIFICATIONS ── */
     #certifications {
       background:
-        linear-gradient(180deg, rgba(7,30,61,0.72) 0%, rgba(14,49,98,0.80) 100%),
-        url('Image/certif.png') center top/cover no-repeat;
+        linear-gradient(180deg, rgba(7,30,61,0.88) 0%, rgba(7,30,61,0.55) 30%, rgba(7,30,61,0.55) 70%, rgba(7,30,61,0.88) 100%),
+        url('Image/certif.png') center top/cover no-repeat fixed;
     }
     .cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     @media (max-width: 640px) { .cert-grid { grid-template-columns: 1fr; } }
@@ -321,8 +321,8 @@
     /* ── CONTACT ── */
     #contact {
       background:
-        linear-gradient(180deg, rgba(7,30,61,0.72) 0%, rgba(14,49,98,0.80) 100%),
-        url('Image/contact.png') center/cover no-repeat;
+        linear-gradient(180deg, rgba(7,30,61,0.88) 0%, rgba(7,30,61,0.55) 30%, rgba(7,30,61,0.55) 70%, rgba(7,30,61,0.88) 100%),
+        url('Image/contact.png') center/cover no-repeat fixed;
     }
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     @media (max-width: 640px) { .contact-grid { grid-template-columns: 1fr; } }
@@ -339,8 +339,8 @@
     /* ── PORTFOLIO ── */
     #portfolio {
       background:
-        linear-gradient(180deg, rgba(7,30,61,0.72) 0%, rgba(14,49,98,0.80) 100%),
-        url('Image/portfolio.png') center/cover no-repeat;
+        linear-gradient(180deg, rgba(7,30,61,0.88) 0%, rgba(7,30,61,0.55) 30%, rgba(7,30,61,0.55) 70%, rgba(7,30,61,0.88) 100%),
+        url('Image/portfolio.png') center/cover no-repeat fixed;
       overflow: hidden;
     }
     .carousel-track-wrap { overflow: hidden; position: relative; }
@@ -591,4 +591,11 @@
       .hero-avatar { width: 96px; height: 96px; }
       .porto-card { height: 280px; }
       .glass { padding: 18px 14px; }
+    }
+
+    /* ── Disable fixed bg attachment on touch devices (iOS bug) ── */
+    @media (max-width: 900px) {
+      #about, #experience, #skills, #certifications, #contact, #portfolio {
+        background-attachment: scroll;
+      }
     }
