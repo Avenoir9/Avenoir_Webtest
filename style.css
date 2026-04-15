@@ -90,28 +90,20 @@
     /* ── SECTIONS ── */
     section { position: relative; z-index: 2; padding: 90px 0; overflow: hidden; }
 
-    /* ── CLOUD SEPARATORS between sections ── */
-    .cloud-sep {
-      position: relative; height: 0; z-index: 10;
-      pointer-events: none; overflow: visible;
-      background: transparent;
+    /* ── SECTION FOG BLEND (top & bottom fade) ── */
+    section:not(#hero)::before,
+    section:not(#hero)::after {
+      content: '';
+      position: absolute; left: 0; right: 0;
+      height: 120px; z-index: 3; pointer-events: none;
     }
-    .cloud-sep img {
-      position: absolute; left: 0; width: 100%;
-      opacity: 0.18;
-      filter: brightness(1.8) blur(1.5px);
-      transform: translateY(-50%);
-      animation: cloud-sep-float 50s ease-in-out infinite alternate;
+    section:not(#hero)::before {
+      top: 0;
+      background: linear-gradient(to bottom, var(--navy) 0%, transparent 100%);
     }
-    .cloud-sep img:nth-child(2) {
-      opacity: 0.12;
-      transform: translateY(-58%) scaleX(-1);
-      animation-duration: 65s;
-      animation-delay: -20s;
-    }
-    @keyframes cloud-sep-float {
-      0%   { margin-left: -2%; }
-      100% { margin-left:  2%; }
+    section:not(#hero)::after {
+      bottom: 0;
+      background: linear-gradient(to top, var(--navy) 0%, transparent 100%);
     }
 
     /* ── HERO ── */
