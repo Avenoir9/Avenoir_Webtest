@@ -339,6 +339,7 @@
 
     /* ── SKILLS ── */
     #skills {
+      padding: 140px 0;
       background:
         linear-gradient(180deg, rgba(7,30,61,0.88) 0%, rgba(7,30,61,0.55) 30%, rgba(7,30,61,0.55) 70%, rgba(7,30,61,0.88) 100%),
         url('Image/skill.png') center/cover no-repeat fixed;
@@ -358,6 +359,7 @@
 
     /* ── CERTIFICATIONS ── */
     #certifications {
+      padding: 140px 0;
       background:
         linear-gradient(180deg, rgba(7,30,61,0.88) 0%, rgba(7,30,61,0.55) 30%, rgba(7,30,61,0.55) 70%, rgba(7,30,61,0.88) 100%),
         url('Image/certif.png') center top/cover no-repeat fixed;
@@ -384,6 +386,7 @@
 
     /* ── CONTACT ── */
     #contact {
+      padding: 140px 0;
       background:
         linear-gradient(180deg, rgba(7,30,61,0.88) 0%, rgba(7,30,61,0.55) 30%, rgba(7,30,61,0.55) 70%, rgba(7,30,61,0.88) 100%),
         url('Image/contact.png') center/cover no-repeat fixed;
