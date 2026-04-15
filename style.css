@@ -24,11 +24,10 @@
     .container {
       max-width: 1140px;
       margin: 0 auto;
-      padding: 0 48px 0 200px; /* left padding clears the side nav */
+      padding: 0 48px;
       position: relative;
       z-index: 2;
     }
-    @media (max-width: 960px) { .container { padding: 0 32px 0 80px; } } /* nav icons only ~60px */
     @media (max-width: 600px) { .container { padding: 0 20px; } }
 
     /* ── STARFIELD ── */
@@ -455,21 +454,21 @@
     .reveal { opacity:0; transform:translateY(32px); transition: opacity .75s ease, transform .75s ease; }
     .reveal.visible { opacity:1; transform:translateY(0); }
 
-    /* ── SIDE NAV (left) ── */
+    /* ── TOP NAV ── */
     #side-nav {
       position: fixed;
-      left: 16px;
-      top: 50%;
-      transform: translateY(-50%);
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 150;
       display: flex;
-      flex-direction: column;
-      align-items: stretch;
+      flex-direction: row;
+      align-items: center;
       gap: 4px;
       background: rgba(7,30,61,.78);
       border: 1px solid rgba(0,223,255,.15);
-      border-radius: 18px;
-      padding: 8px 6px;
+      border-radius: 40px;
+      padding: 5px 8px;
       backdrop-filter: blur(20px);
       box-shadow: 0 4px 24px rgba(0,0,0,.3);
     }
@@ -477,7 +476,7 @@
     .snb {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       border-radius: 30px;
       padding: 7px 13px;
       text-decoration: none;
@@ -503,11 +502,10 @@
 
     .snb-label { font-size: .56rem; }
 
-    /* tablet: icons only, nav gets narrower */
+    /* tablet: icons only */
     @media (max-width: 960px) {
-      .snb { padding: 7px 8px; }
+      .snb { padding: 7px 10px; }
       .snb-label { display: none; }
-      #side-nav { padding: 6px 4px; }
     }
     /* mobile: hide nav */
     @media (max-width: 600px) { #side-nav { display: none; } }
