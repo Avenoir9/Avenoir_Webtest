@@ -169,9 +169,8 @@
       position: relative; z-index: 5;
       background: linear-gradient(to bottom,
         transparent 0%,
-        rgba(255,255,255,0.85) 25%,
-        rgba(255,255,255,0.95) 50%,
-        rgba(255,255,255,0.85) 75%,
+        rgba(210,230,255,0.18) 40%,
+        rgba(210,230,255,0.22) 60%,
         transparent 100%
       );
       pointer-events: none;
