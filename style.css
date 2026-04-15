@@ -238,16 +238,16 @@
     }
     @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-12px);} }
     .hero-name {
-      font-family: 'Orbitron', sans-serif; font-size: 2.8rem; font-weight: 900;
+      font-family: 'Orbitron', sans-serif; font-size: clamp(1.6rem, 6vw, 2.8rem); font-weight: 900;
       background: linear-gradient(135deg, var(--white) 0%, var(--accent) 55%, var(--gold) 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       line-height: 1.1; margin-bottom: 12px;
     }
-    @media (max-width: 600px) { .hero-name { font-size: 2rem; } }
-    .hero-title { font-size: 1rem; font-weight: 300; letter-spacing: .12em; color: var(--light); margin-bottom: 8px; }
+    .hero-title { font-size: clamp(0.78rem, 2.5vw, 1rem); font-weight: 300; letter-spacing: .12em; color: var(--light); margin-bottom: 8px; }
     .hero-loc {
-      font-size: .82rem; color: rgba(255,255,255,.5); letter-spacing: .08em;
+      font-size: clamp(0.72rem, 2vw, 0.82rem); color: rgba(255,255,255,.5); letter-spacing: .08em;
       display: flex; align-items: center; gap: 8px; justify-content: center;
+      flex-wrap: wrap; text-align: center;
     }
     .dot-live { width:8px;height:8px;border-radius:50%;background:var(--accent);animation:blink 1.4s infinite;flex-shrink:0; }
     @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.2;} }
@@ -277,7 +277,7 @@
       letter-spacing: .22em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
     }
     .sec-title {
-      font-family: 'Orbitron', sans-serif; font-size: 1.6rem; font-weight: 700;
+      font-family: 'Orbitron', sans-serif; font-size: clamp(1.1rem, 3.5vw, 1.6rem); font-weight: 700;
       color: var(--white); margin-bottom: 28px; position: relative; display: inline-block;
     }
     .sec-title::after {
@@ -303,14 +303,14 @@
       display: grid; grid-template-columns: 3fr 2fr; gap: 32px; align-items: start;
     }
     @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } }
-    .about-text { font-size: .92rem; line-height: 1.85; color: rgba(255,255,255,.72); }
+    .about-text { font-size: .92rem; line-height: 1.85; color: rgba(255,255,255,.72); overflow-wrap: break-word; }
     .about-text span { color: var(--accent); font-weight: 600; }
-    .stats-col { display: flex; flex-direction: column; gap: 16px; }
+    .stats-col { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
     .stat-box {
       background: rgba(0,212,255,.06); border: 1px solid rgba(0,212,255,.2);
       border-radius: 14px; padding: 20px 22px;
       display: flex; align-items: center; gap: 18px;
-      transition: all .3s;
+      transition: all .3s; min-width: 0;
     }
     .stat-box:hover { background: rgba(0,212,255,.13); transform: translateX(4px); }
     .stat-num { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--accent); flex-shrink: 0; }
@@ -334,9 +334,9 @@
       background: var(--accent); box-shadow: 0 0 14px var(--accent);
     }
     .tl-year { font-family:'Orbitron',sans-serif; font-size:.62rem; color:var(--accent); letter-spacing:.1em; margin-bottom:5px; }
-    .tl-role { font-size:1.05rem; font-weight:600; color:var(--white); margin-bottom:3px; }
-    .tl-company { font-size:.82rem; color:var(--light); margin-bottom:10px; }
-    .tl-desc { font-size:.84rem; color:rgba(255,255,255,.58); line-height:1.75; }
+    .tl-role { font-size:1.05rem; font-weight:600; color:var(--white); margin-bottom:3px; overflow-wrap: break-word; }
+    .tl-company { font-size:.82rem; color:var(--light); margin-bottom:10px; overflow-wrap: break-word; }
+    .tl-desc { font-size:.84rem; color:rgba(255,255,255,.58); line-height:1.75; overflow-wrap: break-word; }
 
     /* ── SKILLS ── */
     #skills {
@@ -375,7 +375,7 @@
     }
     .cert-item:hover { background: rgba(0,212,255,.12); border-color: var(--accent); transform: translateY(-3px); }
     .cert-icon { font-size: 2rem; flex-shrink: 0; }
-    .cert-info { flex: 1; }
+    .cert-info { flex: 1; min-width: 0; overflow-wrap: break-word; }
     .cert-name { font-size: .95rem; font-weight: 600; color: var(--white); }
     .cert-detail { font-size: .75rem; color: rgba(255,255,255,.42); margin-top: 4px; }
     .cert-badge {
@@ -395,8 +395,9 @@
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     @media (max-width: 640px) { .contact-grid { grid-template-columns: 1fr; } }
     .contact-item {
-      display: flex; align-items: center; gap: 16px;
+      display: flex; align-items: flex-start; gap: 16px;
       font-size: .9rem; color: rgba(255,255,255,.72);
+      overflow-wrap: anywhere; word-break: break-word;
       padding: 16px 20px; border-radius: 14px;
       background: rgba(0,212,255,.05); border: 1px solid rgba(0,212,255,.1);
       transition: all .3s;
@@ -595,31 +596,22 @@
     /* ── Tablet (≤ 900px) ── */
     @media (max-width: 900px) {
       section { padding: 70px 0; }
-
-      .hero-name { font-size: 2.4rem; }
-      .hero-title { font-size: .92rem; }
+      #skills, #certifications, #contact { padding: 100px 0; }
       .badge { font-size: .55rem; letter-spacing: .12em; }
-
-      .sec-title { font-size: 1.35rem; }
-
       .tl-role { font-size: 1rem; }
-
       .porto-card { flex: 0 0 260px; height: 360px; }
     }
 
     /* ── Mobile (≤ 640px) ── */
     @media (max-width: 640px) {
       section { padding: 56px 0; }
+      #skills, #certifications, #contact { padding: 80px 0; }
 
       /* Hero */
       .hero-avatar { width: 110px; height: 110px; }
-      .hero-name { font-size: 2rem; }
-      .hero-title { font-size: .85rem; letter-spacing: .06em; }
-      .hero-loc { font-size: .75rem; flex-wrap: wrap; justify-content: center; }
       .badge { padding: 5px 14px; font-size: .5rem; }
 
       /* Sections */
-      .sec-title { font-size: 1.2rem; }
       .sec-label { font-size: .52rem; }
       .wing-divider { margin: 0 0 24px; }
 
@@ -627,9 +619,11 @@
       .glass { padding: 22px 18px; }
       .stat-box { padding: 14px 16px; }
       .stat-num { font-size: 1.4rem; }
+      .stat-lbl { font-size: .75rem; }
 
       /* Timeline */
-      .tl-item { padding: 20px 18px; }
+      .timeline { padding-left: 24px; }
+      .tl-item { margin-bottom: 28px; }
       .tl-role { font-size: .95rem; }
       .tl-desc { font-size: .78rem; }
 
@@ -638,8 +632,9 @@
       .skill-name { font-size: .78rem; }
 
       /* Certifications */
-      .cert-item { padding: 16px 18px; }
+      .cert-item { padding: 16px 14px; gap: 12px; }
       .cert-name { font-size: .85rem; }
+      .cert-badge { font-size: .55rem; padding: 4px 8px; }
 
       /* Contact */
       .contact-item { padding: 14px 16px; font-size: .82rem; }
@@ -655,10 +650,22 @@
 
     /* ── Small mobile (≤ 420px) ── */
     @media (max-width: 420px) {
-      .hero-name { font-size: 1.7rem; }
       .hero-avatar { width: 96px; height: 96px; }
       .porto-card { height: 280px; }
       .glass { padding: 18px 14px; }
+      .tl-year { font-size: .55rem; }
+    }
+
+    /* ── Micro (≤ 360px) — high zoom or small device ── */
+    @media (max-width: 360px) {
+      .container { padding: 0 14px; }
+      .badge { font-size: .44rem; padding: 4px 10px; letter-spacing: .08em; }
+      .hero-avatar { width: 84px; height: 84px; }
+      #skills, #certifications, #contact { padding: 64px 0; }
+      .cert-item { flex-wrap: wrap; }
+      .cert-badge { align-self: flex-start; }
+      .skills-grid { gap: 10px; }
+      .skill-chip { padding: 10px 12px; gap: 8px; }
     }
 
     /* ── Disable fixed bg attachment on touch devices (iOS bug) ── */
